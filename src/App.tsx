@@ -1,8 +1,8 @@
 import "./App.css";
 import image1 from "./assets/Ate_Nhels_Page_1.jpg";
-import image2 from "./assets/Ate_Nhels_Page_1.jpg";
-import image3 from "./assets/Ate_Nhels_Page_1.jpg";
-import image4 from "./assets/Ate_Nhels_Page_1.jpg";
+import image2 from "./assets/Ate_Nhels_Page_2.jpg";
+import image3 from "./assets/Ate_Nhels_Page_3.jpg";
+import image4 from "./assets/Ate_Nhels_Page_4.jpg";
 
 function App() {
   return (
