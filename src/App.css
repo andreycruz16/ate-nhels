@@ -4,3 +4,9 @@
   padding: 2rem;
   text-align: center;
 }
+
+.responsive {
+  width: 100%;
+  max-width: 880px;
+  height: auto;
+}
