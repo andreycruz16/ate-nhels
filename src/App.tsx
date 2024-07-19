@@ -21,7 +21,7 @@ function App() {
     <div className="App">
       <h1>Ate Nhel's</h1>
       {images.map((publicId, index) => (
-        <AdvancedImage key={index} cldImg={createImage(publicId)} className="responsive"/>
+        <AdvancedImage key={index} cldImg={createImage(publicId)} className="responsive" alt="ate nhels" />
       ))}
       <div className="contact-number">09498701629</div>
       <div className="contact-number-label">Contact Number</div>
