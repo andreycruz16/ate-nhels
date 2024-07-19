@@ -1,7 +1,5 @@
-import React from 'react';
 import "./App.css";
 import { Cloudinary } from '@cloudinary/url-gen';
-import { auto } from '@cloudinary/url-gen/actions/resize';
 import { AdvancedImage } from '@cloudinary/react';
 
 function App() {
@@ -10,8 +8,7 @@ function App() {
   const createImage = (publicId: string | undefined) => cld
     .image(publicId)
     .format('auto')
-    .quality('auto')
-    .resize(auto().width(900));
+    .quality('auto');
 
   const images = [
     'ate_nhels/Ate_Nhels_Page_1.jpg',
@@ -24,7 +21,7 @@ function App() {
     <div className="App">
       <h1>Ate Nhel's</h1>
       {images.map((publicId, index) => (
-        <AdvancedImage key={index} cldImg={createImage(publicId)} />
+        <AdvancedImage key={index} cldImg={createImage(publicId)} className="responsive"/>
       ))}
       <div className="contact-number">09498701629</div>
       <div className="contact-number-label">Contact Number</div>
