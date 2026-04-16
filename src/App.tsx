@@ -24,13 +24,15 @@ function App() {
       {images.map((publicId, index) => (
         <AdvancedImage key={index} cldImg={createImage(publicId)} alt="ate nhels" className="responsive"/>
       ))}
-      <div className="contact-number">
-        <a href="tel:+639498701629">0949 870 1629 (Smart / GCash)</a>
+      <div className="contact-section">
+        <div className="contact-number-label">Contact Information</div>
+        <div className="contact-number">
+          <a href="tel:+639498701629">📱 0949 870 1629 <span className="contact-number-provider">(Smart / GCash)</span></a>
+        </div>
+        <div className="contact-number">
+          <a href="tel:+639935958246">📱 0993 595 8246 <span className="contact-number-provider">(DITO)</span></a>
+        </div>
       </div>
-      <div className="contact-number">
-        <a href="tel:+639935958246">0993 595 8246 (DITO)</a>
-      </div>
-      <div className="contact-number-label">Contact Number</div>
     </div>
   );
 }
