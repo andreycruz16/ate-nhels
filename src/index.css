@@ -9,8 +9,38 @@
   background-color: #fffaf3;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 body {
   margin: 0;
   display: flex;
   min-height: 100vh;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+button, a {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    font-size: 13px;
+  }
 }
