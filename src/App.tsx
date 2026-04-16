@@ -45,23 +45,18 @@ function App() {
       {/* Contact Section */}
       <section className="contact-section">
         <div className="contact-container">
-          <h2 className="contact-title">Get in Touch</h2>
-          <p className="contact-subtitle">Reach out via phone or message</p>
-
           <div className="contact-methods">
             <div className="contact-card">
-              <div className="contact-icon">📱</div>
               <div className="contact-info">
                 <p className="contact-label">Smart / GCash</p>
-                <a href="tel:+639498701629" className="contact-link">0949 870 1629</a>
+                <a href="tel:+639498701629" className="contact-link">09498701629</a>
               </div>
             </div>
 
             <div className="contact-card">
-              <div className="contact-icon">📱</div>
               <div className="contact-info">
                 <p className="contact-label">DITO</p>
-                <a href="tel:+639935958246" className="contact-link">0993 595 8246</a>
+                <a href="tel:+639935958246" className="contact-link">09935958246</a>
               </div>
             </div>
           </div>
