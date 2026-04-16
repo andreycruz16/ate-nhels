@@ -15,8 +15,7 @@ function App() {
   const images = [
     'ate_nhels/Ate_Nhels_Page_1.jpg',
     'ate_nhels/Ate_Nhels_Page_2.jpg',
-    'ate_nhels/Ate_Nhels_Page_3.jpg',
-    'ate_nhels/Ate_Nhels_Page_4.jpg'
+    'ate_nhels/Ate_Nhels_Page_3.jpg'
   ];
 
   return (
@@ -25,7 +24,12 @@ function App() {
       {images.map((publicId, index) => (
         <AdvancedImage key={index} cldImg={createImage(publicId)} alt="ate nhels" className="responsive"/>
       ))}
-      <div className="contact-number">09498701629</div>
+      <div className="contact-number">
+        <a href="tel:+639498701629">0949 870 1629 (Smart / GCash)</a>
+      </div>
+      <div className="contact-number">
+        <a href="tel:+639935958246">0993 595 8246 (DITO)</a>
+      </div>
       <div className="contact-number-label">Contact Number</div>
     </div>
   );
