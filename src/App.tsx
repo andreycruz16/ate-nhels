@@ -13,9 +13,9 @@ function App() {
     .resize(scale().width('auto'));
 
   const images = [
-    'ate_nhels/Ate_Nhels_Page_1.jpg',
-    'ate_nhels/Ate_Nhels_Page_2.jpg',
-    'ate_nhels/Ate_Nhels_Page_3.jpg'
+    'ate_nhels/Ate_Nhels_Page_1_2026.jpg',
+    'ate_nhels/Ate_Nhels_Page_2_2026.jpg',
+    'ate_nhels/Ate_Nhels_Page_3_2026.jpg'
   ];
 
   return (
