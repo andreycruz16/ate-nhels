@@ -44,3 +44,24 @@ body {
 .thin-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+@keyframes copy-pop {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(65, 88, 61, 0.24);
+  }
+
+  45% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 10px rgba(65, 88, 61, 0);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(65, 88, 61, 0);
+  }
+}
+
+.copy-success {
+  animation: copy-pop 320ms ease-out;
+}

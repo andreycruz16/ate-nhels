@@ -119,10 +119,11 @@ function App() {
   const contacts = menuData.contacts as Contact[];
 
   const [activeSection, setActiveSection] = useState(navItems[0]?.id ?? "");
-  const [isNavVisible, setIsNavVisible] = useState(true);
+  const [copiedContact, setCopiedContact] = useState<string | null>(null);
   const navScrollRef = useRef<HTMLDivElement | null>(null);
   const pendingSectionRef = useRef<string | null>(null);
   const pendingSectionTimeoutRef = useRef<number | null>(null);
+  const copiedTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     const sections = navItems
@@ -194,38 +195,63 @@ function App() {
   }, [activeSection]);
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const scrollDelta = currentScrollY - lastScrollY;
-
-      if (currentScrollY <= 16) {
-        setIsNavVisible(true);
-      } else if (scrollDelta > 8) {
-        setIsNavVisible(false);
-      } else if (scrollDelta < -8) {
-        setIsNavVisible(true);
-      }
-
-      lastScrollY = currentScrollY;
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      if (copiedTimeoutRef.current) {
+        window.clearTimeout(copiedTimeoutRef.current);
+      }
     };
   }, []);
+
+  const copyContactNumber = async (label: string, value: string) => {
+    const finalizeCopy = () => {
+      setCopiedContact(label);
+
+      if (copiedTimeoutRef.current) {
+        window.clearTimeout(copiedTimeoutRef.current);
+      }
+
+      copiedTimeoutRef.current = window.setTimeout(() => {
+        setCopiedContact(null);
+        copiedTimeoutRef.current = null;
+      }, 1800);
+    };
+
+    try {
+      if (navigator.clipboard?.writeText && window.isSecureContext) {
+        await navigator.clipboard.writeText(value);
+        finalizeCopy();
+        return;
+      }
+
+      const textArea = document.createElement("textarea");
+      textArea.value = value;
+      textArea.setAttribute("readonly", "");
+      textArea.style.position = "fixed";
+      textArea.style.top = "0";
+      textArea.style.left = "-9999px";
+      textArea.style.opacity = "0";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      textArea.setSelectionRange(0, textArea.value.length);
+
+      const copied = document.execCommand("copy");
+      document.body.removeChild(textArea);
+
+      if (!copied) {
+        throw new Error("Fallback copy failed");
+      }
+
+      finalizeCopy();
+    } catch {
+      setCopiedContact(null);
+    }
+  };
 
   return (
     <main className="bg-cream">
       <section id="top" className="mx-auto max-w-5xl px-4 pt-0 pb-8 sm:px-6 lg:px-8">
-        <nav
-          className={`sticky top-0 z-10 border-b border-black/10 bg-cream/95 pt-4 pb-3 backdrop-blur transition-transform duration-300 ${
-            isNavVisible ? "translate-y-0" : "-translate-y-full"
-          }`}
-        >
+        <nav className="sticky top-0 z-10 border-b border-black/10 bg-cream/95 pt-4 pb-3 backdrop-blur">
           <div className="flex items-center justify-between gap-4">
             <a
               href="#top"
@@ -243,7 +269,8 @@ function App() {
           <p className="mt-3 text-xs font-semibold uppercase tracking-[0.22em] text-black/45">
             Last updated {menuData.lastUpdated}
           </p>
-          <div ref={navScrollRef} className="thin-scrollbar mt-4 min-w-0 overflow-x-auto">
+          <div className="mt-3 overflow-hidden">
+            <div ref={navScrollRef} className="thin-scrollbar min-w-0 overflow-x-auto">
             <div className="flex min-w-max gap-3">
               {navItems.map((item) => (
                 <a
@@ -263,7 +290,7 @@ function App() {
                       pendingSectionTimeoutRef.current = null;
                     }, 800);
                   }}
-                  className={`rounded-full border px-4 py-2 text-sm transition ${
+                  className={`rounded-full border px-3 py-1.5 text-xs transition sm:px-4 sm:py-2 sm:text-sm ${
                     activeSection === item.id
                       ? "border-black bg-black text-white"
                       : "border-black/10 text-black/70 hover:border-black/30 hover:text-black"
@@ -275,6 +302,7 @@ function App() {
                 </a>
               ))}
             </div>
+          </div>
           </div>
         </nav>
 
@@ -304,14 +332,28 @@ function App() {
           <p className="text-sm text-black/60">For ordering information, please contact</p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {contacts.map((contact) => (
-              <a
+              <div
                 key={contact.label}
-                href={contact.href}
-                className="rounded-2xl border border-black/10 bg-white px-4 py-4 transition hover:border-black/25"
+                className="flex items-center justify-between gap-4 rounded-2xl border border-black/10 bg-white px-4 py-4"
               >
-                <p className="text-sm text-black/55">{contact.label}</p>
-                <p className="mt-1 font-display text-3xl leading-none text-black">{contact.value}</p>
-              </a>
+                <div className="min-w-0">
+                  <p className="text-sm text-black/55">{contact.label}</p>
+                  <p className="mt-1 font-display text-3xl leading-none text-black">{contact.value}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    void copyContactNumber(contact.label, contact.value);
+                  }}
+                  className={`shrink-0 rounded-full border px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition ${
+                    copiedContact === contact.label
+                      ? "copy-success border-olive bg-olive text-white"
+                      : "border-black/10 text-black hover:border-black/25 hover:bg-black hover:text-white"
+                  }`}
+                >
+                  {copiedContact === contact.label ? "Copied" : "Copy"}
+                </button>
+              </div>
             ))}
           </div>
         </section>
