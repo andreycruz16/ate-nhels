@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useRef, useState } from "react";
+import menuData from "./data/menu.json";
 
 function App() {
   type MenuItem = {
@@ -16,6 +17,12 @@ function App() {
       servings: string[];
       items: MenuItem[];
     }>;
+  };
+
+  type Contact = {
+    label: string;
+    value: string;
+    href: string;
   };
 
   const renderMenuTable = (
@@ -100,118 +107,8 @@ function App() {
     </div>
   );
 
-  const sectionEmojis: Record<string, string> = {
-    Pasta: '🍝',
-    Beef: '🥩',
-    Pork: '🐷',
-    Chicken: '🍗',
-    Seafood: '🦞',
-    Vegetable: '🥬',
-  };
-
-  const menuSections: MenuSection[] = [
-    {
-      title: 'Pasta',
-      servings: ['Good for 20', 'Good for 30'],
-      items: [
-        { name: 'Pancit Malabon', prices: ['₱ 1,000', '₱ 1,300'] },
-        { name: 'Pancit Canton', prices: ['₱ 1,000', '₱ 1,300'] },
-        { name: 'Pancit Bihon', prices: ['₱ 950', '₱ 1,250'] },
-        { name: 'Spaghetti', prices: ['₱ 1,000', '₱ 1,300'] },
-        { name: 'Carbonara', prices: ['₱ 1,050', '₱ 1,350'] },
-        { name: 'Pancit Sotanghon', prices: ['₱ 1,000', '₱ 1,300'] },
-      ],
-      extraTables: [
-        {
-          servings: ['Per piece'],
-          items: [
-            { name: 'Puto (25 pcs)', prices: ['₱ 250'], note: 'Cheese / Yema / Salted Egg Flavor' },
-          ],
-        },
-      ],
-    },
-    {
-      title: 'Beef',
-      servings: ['Good for 20 - 25'],
-      items: [
-        { name: 'Beef Kaldereta', prices: ['₱ 2,125'] },
-        { name: 'Beef Steak', prices: ['₱ 2,125'] },
-        { name: 'Crispy Kare-Kare', prices: ['₱ 2,125'] },
-      ],
-    },
-    {
-      title: 'Pork',
-      servings: ['Good for 20 - 25'],
-      items: [
-        { name: 'Lechon Kawali', prices: ['₱ 2,000'] },
-        { name: 'Pork Sisig', prices: ['₱ 1,800'] },
-        { name: 'Pork Teriyaki', prices: ['₱ 1,800'] },
-        { name: 'Sweet & Sour Pork', prices: ['₱ 1,800'] },
-        { name: 'Giniling with quail egg', prices: ['₱ 1,600'] },
-        { name: 'Menudo', prices: ['₱ 1,800'] },
-        { name: 'Pork Tapa', prices: ['₱ 1,800'] },
-        { name: 'Bicol Express', prices: ['₱ 1,800'] },
-        { name: 'Pork Barbeque', prices: ['₱ 1,700'] },
-        { name: 'Inihaw na Liempo', prices: ['₱ 2,000'] },
-        { name: 'Pork Binagoongan', prices: ['₱ 1,800'] },
-        { name: 'Pork Dinuguan', prices: ['₱ 1,700'] },
-        { name: 'Pork Shanghai (50pcs)', prices: ['₱ 800'] },
-        { name: 'Pork Shanghai (100pcs)', prices: ['₱ 1,600'] },
-      ],
-    },
-    {
-      title: 'Chicken',
-      servings: ['Good for 20 - 25'],
-      items: [
-        { name: 'Chicken Fillet', prices: ['₱ 1,850'] },
-        { name: 'Chicken Cordon Bleu', prices: ['₱ 2,000'] },
-        { name: 'Chicken Afritada', prices: ['₱ 1,850'] },
-        { name: 'Pininyahang Manok', prices: ['₱ 1,850'] },
-        { name: 'Chicken Menudo (Boneless)', prices: ['₱ 1,750'] },
-        { name: 'Chicken Pastel', prices: ['₱ 1,850'] },
-        { name: 'Chicken Curry', prices: ['₱ 1,750'] },
-        { name: 'Chicken Pastil', prices: ['₱ 1,750'] },
-        { name: 'Chicken Shanghai (50pcs)', prices: ['₱ 900'] },
-        { name: 'Chicken Shanghai (100pcs)', prices: ['₱ 1,750'] },
-      ],
-    },
-    {
-      title: 'Seafood',
-      servings: ['Good for 20 - 25'],
-      items: [
-        { name: 'Calamares', prices: ['₱ 2,000'] },
-        { name: 'Fish fillet', prices: ['₱ 1,800'] },
-        { name: 'Seafood curry', prices: ['₱ 1,850'] },
-        { name: 'Bangus Sisig', prices: ['₱ 1,700'] },
-      ],
-      extraTables: [
-        {
-          servings: ['Per piece'],
-          items: [
-            { name: 'Boneless Inihaw na bangus (Medium)', prices: ['₱ 300'] },
-            { name: 'Boneless Inihaw na bangus (Large)', prices: ['₱ 400'] },
-          ],
-        },
-      ],
-    },
-    {
-      title: 'Vegetable',
-      servings: ['Good for 25'],
-      items: [
-        { name: 'Dry Laing', prices: ['₱ 1,500'] },
-      ],
-      extraTables: [
-        {
-          title: 'Per piece',
-          servings: ['Per piece'],
-          items: [
-            { name: 'Fresh Lumpia', prices: ['₱ 60'] },
-            { name: 'Lumpiang Toge', prices: ['₱ 15'] },
-          ],
-        },
-      ],
-    },
-  ];
+  const sectionEmojis = menuData.sectionEmojis as Record<string, string>;
+  const menuSections = menuData.menuSections as MenuSection[];
 
   const navItems = menuSections.map((section) => ({
     label: section.title,
@@ -219,10 +116,7 @@ function App() {
     emoji: sectionEmojis[section.title] ?? '🍽️',
   }));
 
-  const contacts = [
-    { label: 'Smart / GCash', value: '09498701629', href: 'tel:+639498701629' },
-    { label: 'DITO', value: '09935958246', href: 'tel:+639935958246' },
-  ];
+  const contacts = menuData.contacts as Contact[];
 
   const [activeSection, setActiveSection] = useState(navItems[0]?.id ?? "");
   const [isNavVisible, setIsNavVisible] = useState(true);
@@ -337,7 +231,7 @@ function App() {
               href="#top"
               className="shrink-0 font-display text-xl leading-none font-bold text-black transition hover:text-black/70 sm:text-2xl"
             >
-              Ate Nhel&apos;s
+              {menuData.brand}
             </a>
             <a
               href="#contact"
@@ -347,7 +241,7 @@ function App() {
             </a>
           </div>
           <p className="mt-3 text-xs font-semibold uppercase tracking-[0.22em] text-black/45">
-            Last updated April 2026
+            Last updated {menuData.lastUpdated}
           </p>
           <div ref={navScrollRef} className="thin-scrollbar mt-4 min-w-0 overflow-x-auto">
             <div className="flex min-w-max gap-3">
