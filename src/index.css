@@ -1,47 +1,59 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-weight: 400;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-  background-color: #fffaf3;
-}
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
 
-* {
-  box-sizing: border-box;
+@theme {
+  --color-ink: #1f2937;
+  --color-olive: #41583d;
+  --color-clay: #b9623f;
+  --color-cream: #f7f2e8;
+  --color-sand: #eadbc1;
+  --color-gold: #f2be5c;
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", serif;
+  --font-sans: "Inter", "Segoe UI", sans-serif;
 }
 
 html {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  user-select: none;
+  background: #f7f2e8;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  display: flex;
-  justify-content: center;
   min-height: 100vh;
-  padding: 0;
-  width: 100%;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-button, a {
-  -webkit-user-select: none;
-  user-select: none;
+#root {
+  min-height: 100vh;
 }
 
-@media (max-width: 768px) {
-  :root {
-    font-size: 14px;
-  }
+::selection {
+  background: rgba(185, 98, 63, 0.24);
 }
 
-@media (max-width: 480px) {
-  :root {
-    font-size: 13px;
-  }
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.22) transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  height: 4px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.34);
 }
