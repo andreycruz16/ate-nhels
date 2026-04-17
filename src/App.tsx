@@ -30,9 +30,9 @@ function App() {
     items: MenuItem[],
     options?: { title?: string },
   ) => (
-    <div className="mt-5 first:mt-0">
+    <div className="mt-4 first:mt-0">
       {options?.title ? (
-        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-black/45">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-black/45 sm:text-sm">
           {options.title}
         </p>
       ) : null}
@@ -40,21 +40,21 @@ function App() {
       <div className="rounded-3xl border border-black/8 bg-white/70 shadow-sm">
         <div className="divide-y divide-black/8 sm:hidden">
           {items.map((item) => (
-            <article key={`${options?.title ?? "table"}-${item.name}`} className="px-4 py-4">
-              <p className="text-base font-medium text-black">{item.name}</p>
+            <article key={`${options?.title ?? "table"}-${item.name}`} className="px-4 py-3">
+              <p className="text-[15px] font-medium leading-snug text-black">{item.name}</p>
               {item.note ? (
-                <p className="mt-1 whitespace-pre-line text-sm text-black/55">{item.note}</p>
+                <p className="mt-1 whitespace-pre-line text-xs leading-relaxed text-black/55">{item.note}</p>
               ) : null}
-              <div className="mt-3 grid gap-2">
+              <div className="mt-2.5 grid gap-1.5">
                 {servings.map((serving, index) => (
                   <div
                     key={`${options?.title ?? "table"}-${item.name}-${serving}`}
-                    className="flex items-center justify-between gap-3 rounded-2xl bg-black/[0.03] px-3 py-2"
+                    className="flex items-center justify-between gap-3 rounded-2xl bg-black/[0.03] px-3 py-1.5"
                   >
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-black/45">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-black/45">
                       {serving}
                     </p>
-                    <p className="font-display text-xl leading-none text-black">
+                    <p className="font-display text-lg leading-none text-black">
                       {item.prices[index] || "-"}
                     </p>
                   </div>
@@ -67,15 +67,15 @@ function App() {
         <div className="hidden overflow-x-auto sm:block">
           <div
             className="grid min-w-[42rem] items-start"
-            style={{ gridTemplateColumns: `minmax(16rem, 1.6fr) repeat(${servings.length}, minmax(9rem, 1fr))` }}
+            style={{ gridTemplateColumns: `minmax(15rem, 1.5fr) repeat(${servings.length}, minmax(7rem, 1fr))` }}
           >
-            <div className="border-b border-black/10 px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.2em] text-black/45 sm:px-5">
+            <div className="border-b border-black/10 px-4 py-2.5 text-left text-[11px] font-semibold uppercase tracking-[0.18em] text-black/45 sm:px-4">
               Menu Item
             </div>
             {servings.map((serving) => (
               <div
                 key={`${options?.title ?? "table"}-${serving}`}
-                className="border-b border-l border-black/10 px-4 py-3 text-left text-xs font-semibold uppercase tracking-[0.2em] text-black/45 sm:px-5 sm:text-right"
+                className="border-b border-l border-black/10 px-4 py-2.5 text-left text-[11px] font-semibold uppercase tracking-[0.18em] text-black/45 sm:px-4 sm:text-right"
               >
                 {serving}
               </div>
@@ -83,18 +83,18 @@ function App() {
 
             {items.map((item) => (
               <Fragment key={`${options?.title ?? "table"}-${item.name}`}>
-                <div className="border-b border-black/8 px-4 py-4 sm:px-5">
-                  <p className="text-base font-medium text-black sm:text-lg">{item.name}</p>
+                <div className="border-b border-black/8 px-4 py-3 sm:px-4">
+                  <p className="text-[15px] font-medium leading-snug text-black sm:text-base">{item.name}</p>
                   {item.note ? (
-                    <p className="mt-1 whitespace-pre-line text-sm text-black/55">{item.note}</p>
+                    <p className="mt-1 whitespace-pre-line text-xs leading-relaxed text-black/55">{item.note}</p>
                   ) : null}
                 </div>
                 {servings.map((serving, index) => (
                   <div
                     key={`${options?.title ?? "table"}-${item.name}-${serving}`}
-                    className="border-b border-l border-black/8 px-4 py-4 text-left sm:px-5 sm:text-right"
+                    className="border-b border-l border-black/8 px-4 py-3 text-left sm:px-4 sm:text-right"
                   >
-                    <p className="font-display text-2xl leading-tight text-black">
+                    <p className="font-display text-xl leading-none text-black sm:text-[1.4rem]">
                       {item.prices[index] || "-"}
                     </p>
                   </div>
