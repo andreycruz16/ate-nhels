@@ -311,7 +311,7 @@ function App() {
             <section
               key={section.title}
               id={section.title.toLowerCase().replace(/\s+/g, '-')}
-              className="scroll-mt-24"
+              className="scroll-mt-40 sm:scroll-mt-44"
             >
               <div className="mb-5 border-b border-black/10 pb-4">
                 <h2 className="font-display text-3xl text-black">{section.title}</h2>
