@@ -4,8 +4,10 @@ A responsive React + Vite menu site for Ate Nhel's catering offerings.
 
 Live sites:
 
-- Production: https://ate-nhels.vercel.app/
-- Development preview: https://dev-ate-nhels.vercel.app/
+| Environment | Status | URL |
+| --- | --- | --- |
+| Production | [![Vercel Deploy](https://deploy-badge.vercel.app/vercel/ate-nhels)](https://ate-nhels.vercel.app/) | https://ate-nhels.vercel.app/ |
+| Development preview | [![Vercel Deploy](https://deploy-badge.vercel.app/vercel/dev-ate-nhels)](https://dev-ate-nhels.vercel.app/) | https://dev-ate-nhels.vercel.app/ |
 
 ## Overview
 
