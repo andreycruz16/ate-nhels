@@ -47,13 +47,13 @@ function App() {
     options?: { title?: string },
   ) => (
     <div className="mt-4 first:mt-0">
-      <div className="overflow-hidden rounded-2xl border border-black/8 bg-white/82 shadow-[0_14px_40px_rgba(85,107,79,0.10)]">
+      <div className="overflow-hidden rounded-xl border border-black/8 bg-white/82 shadow-[0_14px_40px_rgba(85,107,79,0.10)]">
         {options?.title ? (
           <div className="flex items-center justify-between gap-3 border-b border-black/8 bg-[linear-gradient(90deg,rgba(229,196,135,0.36),rgba(220,207,188,0.6))] px-4 py-3 sm:px-5">
             <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/50 sm:text-[11px]">
               {options.title}
             </p>
-            <div className="rounded-full border border-black/10 bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/50">
+            <div className="rounded-full border border-black/10 bg-black/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/55">
               {items.length} items
             </div>
           </div>
@@ -76,22 +76,20 @@ function App() {
               </div>
             ))}
 
-            {items.map((item, itemIndex) => {
+            {items.map((item) => {
               const itemLabel = getItemLabelParts(item.name);
 
               return (
               <Fragment key={getTableId(options?.title, item.name)}>
                 <div
-                  className={`sticky left-0 z-[1] border-b border-black/8 px-2.5 py-2.5 backdrop-blur sm:px-4 sm:py-3 ${
-                    itemIndex % 2 === 0 ? "bg-white/95" : "bg-[#faf5ed]/95"
-                  }`}
+                  className="sticky left-0 z-[1] flex h-full flex-col justify-center border-b border-black/8 bg-white/95 px-2.5 py-2.5 backdrop-blur sm:px-4 sm:py-3"
                 >
                   <div className="flex flex-wrap items-start gap-1.5 sm:gap-2">
                     <p className="min-w-0 text-[12px] font-semibold leading-snug text-black sm:text-[15px]">
                       {itemLabel.title}
                     </p>
                     {itemLabel.meta ? (
-                      <span className="whitespace-nowrap rounded-full bg-[#c46a4a]/10 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.08em] text-[#8b4b33] sm:px-2 sm:text-[10px] sm:tracking-[0.12em]">
+                      <span className="whitespace-nowrap rounded-full border border-black/10 bg-black/[0.04] px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.08em] text-black/60 sm:px-2 sm:text-[10px] sm:tracking-[0.12em]">
                         {itemLabel.meta}
                       </span>
                     ) : null}
@@ -103,9 +101,7 @@ function App() {
                 {servings.map((serving, index) => (
                   <div
                     key={`${getTableId(options?.title, item.name)}-${serving}`}
-                    className={`border-b border-l border-black/8 px-1.5 py-2.5 text-center sm:px-4 sm:py-3 sm:text-right ${
-                      itemIndex % 2 === 0 ? "bg-white/65" : "bg-[#faf5ed]/80"
-                    }`}
+                    className="flex h-full items-center justify-center border-b border-l border-black/8 bg-white/65 px-1.5 py-2.5 text-center sm:justify-end sm:px-4 sm:py-3 sm:text-right"
                   >
                     <p className="font-display text-[1rem] leading-none text-black sm:text-[1.35rem]">
                       {item.prices[index] || "-"}
@@ -332,7 +328,7 @@ function App() {
                   <div>
                     <h2 className="font-display text-2xl text-olive sm:text-3xl">{section.title}</h2>
                   </div>
-                  <div className="hidden rounded-full border border-black/10 bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/45 sm:block">
+                  <div className="hidden rounded-full border border-black/10 bg-black/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/55 sm:block">
                     {section.items.length + (section.extraTables?.reduce((sum, table) => sum + table.items.length, 0) ?? 0)} choices
                   </div>
                 </div>
