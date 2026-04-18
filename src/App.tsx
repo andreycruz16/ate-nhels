@@ -320,9 +320,12 @@ function App() {
               Contact
             </button>
           </div>
-          <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-black/45 sm:mt-3 sm:text-xs sm:tracking-[0.22em]">
-            Last updated {menuData.lastUpdated}
-          </p>
+          <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-clay/25 bg-[linear-gradient(135deg,rgba(199,120,74,0.14),rgba(229,196,135,0.3))] px-3 py-1.5 shadow-[0_10px_24px_rgba(199,120,74,0.12)] sm:mt-4 sm:px-4 sm:py-2">
+            <span className="flex h-2.5 w-2.5 shrink-0 rounded-full bg-clay shadow-[0_0_0_4px_rgba(199,120,74,0.14)]" aria-hidden="true" />
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-clay sm:text-xs sm:tracking-[0.22em]">
+              Menu updated {menuData.lastUpdated}
+            </p>
+          </div>
           <div className="mt-2 overflow-hidden sm:mt-3">
             <div ref={navScrollRef} className="thin-scrollbar min-w-0 overflow-x-auto">
             <div className="flex min-w-max gap-2 sm:gap-3">
