@@ -11,7 +11,7 @@
   },
   "contacts": [
     {
-      "label": "Smart / GCash",
+      "label": "Smart / GCash Payments",
       "value": "09498701629",
       "href": "tel:+639498701629"
     },
@@ -35,6 +35,7 @@
       ],
       "extraTables": [
         {
+          "title": "Additionals",
           "servings": ["Per piece"],
           "items": [
             {
@@ -118,7 +119,6 @@
       ],
       "extraTables": [
         {
-          "title": "Per piece",
           "servings": ["Per piece"],
           "items": [
             { "name": "Fresh Lumpia", "prices": ["₱ 60"] },

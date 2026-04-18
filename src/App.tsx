@@ -25,6 +25,16 @@ function App() {
     href: string;
   };
 
+  const getSmsHref = (href: string, value: string) => {
+    if (href.startsWith("sms:")) {
+      return href;
+    }
+
+    const phoneNumber = href.startsWith("tel:") ? href.slice(4) : value.replace(/\s+/g, "");
+
+    return `sms:${phoneNumber}`;
+  };
+
   const getTableId = (tableTitle: string | undefined, itemName: string) =>
     `${tableTitle ?? "table"}-${itemName}`;
 
@@ -47,15 +57,12 @@ function App() {
     options?: { title?: string },
   ) => (
     <div className="mt-4 first:mt-0">
-      <div className="overflow-hidden rounded-xl border border-black/8 bg-white/82 shadow-[0_14px_40px_rgba(85,107,79,0.10)]">
+      <div className="overflow-hidden rounded-xl border border-black/12 bg-white/82 shadow-[0_14px_40px_rgba(85,107,79,0.10)]">
         {options?.title ? (
-          <div className="flex items-center justify-between gap-3 border-b border-black/8 bg-[linear-gradient(90deg,rgba(229,196,135,0.36),rgba(220,207,188,0.6))] px-4 py-3 sm:px-5">
+          <div className="flex items-center justify-between gap-3 border-b border-black/12 bg-[linear-gradient(90deg,rgba(229,196,135,0.36),rgba(220,207,188,0.6))] px-4 py-3 sm:px-5">
             <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/50 sm:text-[11px]">
               {options.title}
             </p>
-            <div className="rounded-full border border-black/10 bg-black/[0.04] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/55">
-              {items.length} items
-            </div>
           </div>
         ) : null}
 
@@ -64,13 +71,13 @@ function App() {
             className="grid w-full items-start sm:min-w-[42rem]"
             style={{ gridTemplateColumns: `minmax(0, 1.7fr) repeat(${servings.length}, minmax(0, 1fr))` }}
           >
-            <div className="sticky left-0 z-[2] flex min-h-11 items-center border-b border-black/8 bg-[#f3ece0] px-2.5 py-2 text-left text-[10px] font-semibold uppercase tracking-[0.12em] text-black/50 sm:min-h-12 sm:px-4 sm:py-2.5 sm:text-xs sm:tracking-[0.18em]">
+            <div className="sticky left-0 z-[2] flex min-h-11 items-center border-r border-b border-black/15 bg-[#f3ece0] px-2.5 py-2 text-left text-[10px] font-semibold uppercase tracking-[0.12em] text-black/50 sm:min-h-12 sm:px-4 sm:py-2.5 sm:text-xs sm:tracking-[0.18em]">
               <span>Menu Item</span>
             </div>
             {servings.map((serving) => (
               <div
                 key={`${options?.title ?? "table"}-${serving}`}
-                className="flex min-h-11 items-center justify-center border-b border-l border-black/8 bg-[#f3ece0] px-1.5 py-2 text-center text-[9px] font-semibold leading-tight tracking-[0.08em] text-black/55 sm:min-h-12 sm:justify-end sm:px-4 sm:py-2.5 sm:text-right sm:text-xs sm:tracking-[0.18em]"
+                className="flex min-h-11 items-center justify-center border-b border-l border-black/15 bg-[#f3ece0] px-1.5 py-2 text-center text-[9px] font-semibold leading-tight tracking-[0.08em] text-black/55 sm:min-h-12 sm:justify-end sm:px-4 sm:py-2.5 sm:text-right sm:text-xs sm:tracking-[0.18em]"
               >
                 <span>{serving}</span>
               </div>
@@ -82,7 +89,7 @@ function App() {
               return (
               <Fragment key={getTableId(options?.title, item.name)}>
                 <div
-                  className="sticky left-0 z-[1] flex h-full flex-col justify-center border-b border-black/8 bg-white/95 px-2.5 py-2.5 backdrop-blur sm:px-4 sm:py-3"
+                  className="sticky left-0 z-[1] flex h-full flex-col justify-center border-r border-b border-black/15 bg-white/95 px-2.5 py-2.5 backdrop-blur sm:px-4 sm:py-3"
                 >
                   <div className="flex flex-wrap items-start gap-1.5 sm:gap-2">
                     <p className="min-w-0 text-[12px] font-semibold leading-snug text-black sm:text-[15px]">
@@ -101,7 +108,7 @@ function App() {
                 {servings.map((serving, index) => (
                   <div
                     key={`${getTableId(options?.title, item.name)}-${serving}`}
-                    className="flex h-full items-center justify-center border-b border-l border-black/8 bg-white/65 px-1.5 py-2.5 text-center sm:justify-end sm:px-4 sm:py-3 sm:text-right"
+                    className="flex h-full items-center justify-center border-b border-l border-black/15 bg-white/65 px-1.5 py-2.5 text-center sm:justify-end sm:px-4 sm:py-3 sm:text-right"
                   >
                     <p className="font-display text-[1rem] leading-none text-black sm:text-[1.35rem]">
                       {item.prices[index] || "-"}
@@ -130,10 +137,12 @@ function App() {
 
   const [activeSection, setActiveSection] = useState(navItems[0]?.id ?? "");
   const [copiedContact, setCopiedContact] = useState<string | null>(null);
+  const [animatedContactAction, setAnimatedContactAction] = useState<string | null>(null);
   const navScrollRef = useRef<HTMLDivElement | null>(null);
   const pendingSectionRef = useRef<string | null>(null);
   const pendingSectionTimeoutRef = useRef<number | null>(null);
   const copiedTimeoutRef = useRef<number | null>(null);
+  const animatedActionTimeoutRef = useRef<number | null>(null);
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
@@ -235,6 +244,10 @@ function App() {
       if (copiedTimeoutRef.current) {
         window.clearTimeout(copiedTimeoutRef.current);
       }
+
+      if (animatedActionTimeoutRef.current) {
+        window.clearTimeout(animatedActionTimeoutRef.current);
+      }
     };
   }, []);
 
@@ -298,6 +311,19 @@ function App() {
     } catch {
       setCopiedContact(null);
     }
+  };
+
+  const animateContactAction = (actionId: string) => {
+    setAnimatedContactAction(actionId);
+
+    if (animatedActionTimeoutRef.current) {
+      window.clearTimeout(animatedActionTimeoutRef.current);
+    }
+
+    animatedActionTimeoutRef.current = window.setTimeout(() => {
+      setAnimatedContactAction(null);
+      animatedActionTimeoutRef.current = null;
+    }, 320);
   };
 
   return (
@@ -383,25 +409,56 @@ function App() {
             {contacts.map((contact) => (
               <div
                 key={contact.label}
-                className="flex items-center justify-between gap-4 rounded-2xl border border-black/10 bg-white/78 px-4 py-4 shadow-[0_12px_28px_rgba(85,107,79,0.08)]"
+                className="rounded-2xl border border-black/10 bg-white/78 px-4 py-4 shadow-[0_12px_28px_rgba(85,107,79,0.08)]"
               >
-                <div className="min-w-0">
-                  <p className="text-sm text-black/55">{contact.label}</p>
-                  <p className="mt-1 font-display text-3xl leading-none text-olive">{contact.value}</p>
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <p className="text-sm text-black/55">{contact.label}</p>
+                    <p className="mt-1 font-display text-3xl leading-none text-olive">{contact.value}</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      animateContactAction(`${contact.label}-copy`);
+                      void copyContactNumber(contact.label, contact.value);
+                    }}
+                    className={`shrink-0 rounded-full border px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition ${
+                      copiedContact === contact.label || animatedContactAction === `${contact.label}-copy`
+                        ? "copy-success border-clay bg-clay text-white"
+                        : "border-black/10 bg-[#f7efe3] text-olive hover:border-olive/30 hover:bg-olive hover:text-white"
+                    }`}
+                  >
+                    {copiedContact === contact.label ? "Copied" : "Copy"}
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    void copyContactNumber(contact.label, contact.value);
-                  }}
-                  className={`shrink-0 rounded-full border px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition ${
-                    copiedContact === contact.label
-                      ? "copy-success border-clay bg-clay text-white"
-                      : "border-black/10 bg-[#f7efe3] text-olive hover:border-olive/30 hover:bg-olive hover:text-white"
-                  }`}
-                >
-                  {copiedContact === contact.label ? "Copied" : "Copy"}
-                </button>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <a
+                    href={contact.href}
+                    onClick={() => {
+                      animateContactAction(`${contact.label}-call`);
+                    }}
+                    className={`inline-flex min-w-[7rem] items-center justify-center rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition ${
+                      animatedContactAction === `${contact.label}-call`
+                        ? "copy-success border-clay bg-clay text-white"
+                        : "border-olive/20 bg-olive text-white hover:bg-[#445640]"
+                    }`}
+                  >
+                    Call
+                  </a>
+                  <a
+                    href={getSmsHref(contact.href, contact.value)}
+                    onClick={() => {
+                      animateContactAction(`${contact.label}-text`);
+                    }}
+                    className={`inline-flex min-w-[7rem] items-center justify-center rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition ${
+                      animatedContactAction === `${contact.label}-text`
+                        ? "copy-success border-clay bg-clay text-white"
+                        : "border-black/10 bg-[#f7efe3] text-olive hover:border-olive/30 hover:bg-[#efe2cd]"
+                    }`}
+                  >
+                    Text
+                  </a>
+                </div>
               </div>
             ))}
           </div>
