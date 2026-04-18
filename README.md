@@ -7,6 +7,7 @@ Live sites:
 | Environment | Status | URL |
 | --- | --- | --- |
 | Production | [![Vercel Deploy](https://deploy-badge.vercel.app/vercel/ate-nhels)](https://ate-nhels.vercel.app/) | https://ate-nhels.vercel.app/ |
+| Production | [![Netlify Status](https://api.netlify.com/api/v1/badges/37e5ec33-b435-477b-ab41-768a93525e7b/deploy-status)](https://app.netlify.com/projects/ate-nhels/deploys) | https://ate-nhels.netlify.app/ |
 | Development preview | [![Vercel Deploy](https://deploy-badge.vercel.app/vercel/dev-ate-nhels)](https://dev-ate-nhels.vercel.app/) | https://dev-ate-nhels.vercel.app/ |
 
 ## Overview
