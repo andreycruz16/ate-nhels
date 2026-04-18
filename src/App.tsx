@@ -25,82 +25,96 @@ function App() {
     href: string;
   };
 
+  const getTableId = (tableTitle: string | undefined, itemName: string) =>
+    `${tableTitle ?? "table"}-${itemName}`;
+
+  const getItemLabelParts = (itemName: string) => {
+    const sizeMatch = itemName.match(/^(.*)\s\(([^)]+)\)$/);
+
+    if (!sizeMatch) {
+      return { title: itemName, meta: null as string | null };
+    }
+
+    return {
+      title: sizeMatch[1],
+      meta: sizeMatch[2],
+    };
+  };
+
   const renderMenuTable = (
     servings: string[],
     items: MenuItem[],
     options?: { title?: string },
   ) => (
     <div className="mt-4 first:mt-0">
-      {options?.title ? (
-        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-black/45 sm:text-sm">
-          {options.title}
-        </p>
-      ) : null}
+      <div className="overflow-hidden rounded-2xl border border-black/8 bg-white/82 shadow-[0_14px_40px_rgba(85,107,79,0.10)]">
+        {options?.title ? (
+          <div className="flex items-center justify-between gap-3 border-b border-black/8 bg-[linear-gradient(90deg,rgba(229,196,135,0.36),rgba(220,207,188,0.6))] px-4 py-3 sm:px-5">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/50 sm:text-[11px]">
+              {options.title}
+            </p>
+            <div className="rounded-full border border-black/10 bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/50">
+              {items.length} items
+            </div>
+          </div>
+        ) : null}
 
-      <div className="rounded-3xl border border-black/8 bg-white/70 shadow-sm">
-        <div className="divide-y divide-black/8 sm:hidden">
-          {items.map((item) => (
-            <article key={`${options?.title ?? "table"}-${item.name}`} className="px-4 py-3">
-              <p className="text-[15px] font-medium leading-snug text-black">{item.name}</p>
-              {item.note ? (
-                <p className="mt-1 whitespace-pre-line text-xs leading-relaxed text-black/55">{item.note}</p>
-              ) : null}
-              <div className="mt-2.5 grid gap-1.5">
-                {servings.map((serving, index) => (
-                  <div
-                    key={`${options?.title ?? "table"}-${item.name}-${serving}`}
-                    className="flex items-center justify-between gap-3 rounded-2xl bg-black/[0.03] px-3 py-1.5"
-                  >
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-black/45">
-                      {serving}
-                    </p>
-                    <p className="font-display text-lg leading-none text-black">
-                      {item.prices[index] || "-"}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <div className="hidden overflow-x-auto sm:block">
+        <div className="overflow-hidden sm:overflow-x-auto">
           <div
-            className="grid min-w-[42rem] items-start"
-            style={{ gridTemplateColumns: `minmax(15rem, 1.5fr) repeat(${servings.length}, minmax(7rem, 1fr))` }}
+            className="grid w-full items-start sm:min-w-[42rem]"
+            style={{ gridTemplateColumns: `minmax(0, 1.7fr) repeat(${servings.length}, minmax(0, 1fr))` }}
           >
-            <div className="border-b border-black/10 px-4 py-2.5 text-left text-[11px] font-semibold uppercase tracking-[0.18em] text-black/45 sm:px-4">
-              Menu Item
+            <div className="sticky left-0 z-[2] flex min-h-11 items-center border-b border-black/8 bg-[#f3ece0] px-2.5 py-2 text-left text-[10px] font-semibold uppercase tracking-[0.12em] text-black/50 sm:min-h-12 sm:px-4 sm:py-2.5 sm:text-xs sm:tracking-[0.18em]">
+              <span>Menu Item</span>
             </div>
             {servings.map((serving) => (
               <div
                 key={`${options?.title ?? "table"}-${serving}`}
-                className="border-b border-l border-black/10 px-4 py-2.5 text-left text-[11px] font-semibold uppercase tracking-[0.18em] text-black/45 sm:px-4 sm:text-right"
+                className="flex min-h-11 items-center justify-center border-b border-l border-black/8 bg-[#f3ece0] px-1.5 py-2 text-center text-[9px] font-semibold leading-tight tracking-[0.08em] text-black/55 sm:min-h-12 sm:justify-end sm:px-4 sm:py-2.5 sm:text-right sm:text-xs sm:tracking-[0.18em]"
               >
-                {serving}
+                <span>{serving}</span>
               </div>
             ))}
 
-            {items.map((item) => (
-              <Fragment key={`${options?.title ?? "table"}-${item.name}`}>
-                <div className="border-b border-black/8 px-4 py-3 sm:px-4">
-                  <p className="text-[15px] font-medium leading-snug text-black sm:text-base">{item.name}</p>
+            {items.map((item, itemIndex) => {
+              const itemLabel = getItemLabelParts(item.name);
+
+              return (
+              <Fragment key={getTableId(options?.title, item.name)}>
+                <div
+                  className={`sticky left-0 z-[1] border-b border-black/8 px-2.5 py-2.5 backdrop-blur sm:px-4 sm:py-3 ${
+                    itemIndex % 2 === 0 ? "bg-white/95" : "bg-[#faf5ed]/95"
+                  }`}
+                >
+                  <div className="flex flex-wrap items-start gap-1.5 sm:gap-2">
+                    <p className="min-w-0 text-[12px] font-semibold leading-snug text-black sm:text-[15px]">
+                      {itemLabel.title}
+                    </p>
+                    {itemLabel.meta ? (
+                      <span className="whitespace-nowrap rounded-full bg-[#c46a4a]/10 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.08em] text-[#8b4b33] sm:px-2 sm:text-[10px] sm:tracking-[0.12em]">
+                        {itemLabel.meta}
+                      </span>
+                    ) : null}
+                  </div>
                   {item.note ? (
-                    <p className="mt-1 whitespace-pre-line text-xs leading-relaxed text-black/55">{item.note}</p>
+                    <p className="mt-1 whitespace-pre-line text-[11px] leading-snug text-black/55 sm:text-xs sm:leading-relaxed">{item.note}</p>
                   ) : null}
                 </div>
                 {servings.map((serving, index) => (
                   <div
-                    key={`${options?.title ?? "table"}-${item.name}-${serving}`}
-                    className="border-b border-l border-black/8 px-4 py-3 text-left sm:px-4 sm:text-right"
+                    key={`${getTableId(options?.title, item.name)}-${serving}`}
+                    className={`border-b border-l border-black/8 px-1.5 py-2.5 text-center sm:px-4 sm:py-3 sm:text-right ${
+                      itemIndex % 2 === 0 ? "bg-white/65" : "bg-[#faf5ed]/80"
+                    }`}
                   >
-                    <p className="font-display text-xl leading-none text-black sm:text-[1.4rem]">
+                    <p className="font-display text-[1rem] leading-none text-black sm:text-[1.35rem]">
                       {item.prices[index] || "-"}
                     </p>
                   </div>
                 ))}
               </Fragment>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
@@ -251,27 +265,27 @@ function App() {
   return (
     <main className="bg-cream">
       <section id="top" className="mx-auto max-w-5xl px-4 pt-0 pb-8 sm:px-6 lg:px-8">
-        <nav className="sticky top-0 z-10 border-b border-black/10 bg-cream/95 pt-4 pb-3 backdrop-blur">
+        <nav className="sticky top-0 z-10 border-b border-black/10 bg-cream/90 pt-3 pb-2 backdrop-blur sm:pt-4 sm:pb-3">
           <div className="flex items-center justify-between gap-4">
             <a
               href="#top"
-              className="shrink-0 font-display text-xl leading-none font-bold text-black transition hover:text-black/70 sm:text-2xl"
+              className="shrink-0 font-display text-lg leading-none font-bold text-olive transition hover:text-clay sm:text-2xl"
             >
               {menuData.brand}
             </a>
             <a
               href="#contact"
-              className="inline-flex shrink-0 rounded-full border border-black/15 px-4 py-2 text-sm font-medium text-black transition hover:bg-black hover:text-white"
+              className="inline-flex shrink-0 rounded-full border border-black/10 bg-white/65 px-3 py-1.5 text-xs font-medium text-olive transition hover:bg-olive hover:text-white sm:px-4 sm:py-2 sm:text-sm"
             >
               Contact
             </a>
           </div>
-          <p className="mt-3 text-xs font-semibold uppercase tracking-[0.22em] text-black/45">
+          <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-black/45 sm:mt-3 sm:text-xs sm:tracking-[0.22em]">
             Last updated {menuData.lastUpdated}
           </p>
-          <div className="mt-3 overflow-hidden">
+          <div className="mt-2 overflow-hidden sm:mt-3">
             <div ref={navScrollRef} className="thin-scrollbar min-w-0 overflow-x-auto">
-            <div className="flex min-w-max gap-3">
+            <div className="flex min-w-max gap-2 sm:gap-3">
               {navItems.map((item) => (
                 <a
                   key={item.id}
@@ -290,10 +304,10 @@ function App() {
                       pendingSectionTimeoutRef.current = null;
                     }, 800);
                   }}
-                  className={`rounded-full border px-3 py-1.5 text-xs transition sm:px-4 sm:py-2 sm:text-sm ${
+                  className={`rounded-full border px-2.5 py-1 text-[11px] transition sm:px-4 sm:py-2 sm:text-sm ${
                     activeSection === item.id
-                      ? "border-black bg-black text-white"
-                      : "border-black/10 text-black/70 hover:border-black/30 hover:text-black"
+                      ? "border-olive bg-olive text-white"
+                      : "border-black/10 bg-white/55 text-black/70 hover:border-olive/30 hover:bg-[#f1e6d4] hover:text-olive"
                   }`}
                 >
                   <span className="whitespace-nowrap">
@@ -306,24 +320,31 @@ function App() {
           </div>
         </nav>
 
-        <div className="mt-12 space-y-10">
+        <div className="mt-8 space-y-8 sm:mt-12 sm:space-y-10">
           {menuSections.map((section) => (
             <section
               key={section.title}
               id={section.title.toLowerCase().replace(/\s+/g, '-')}
               className="scroll-mt-40 sm:scroll-mt-44"
             >
-              <div className="mb-5 border-b border-black/10 pb-4">
-                <h2 className="font-display text-3xl text-black">{section.title}</h2>
+              <div className="rounded-[2rem] border border-black/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.68),rgba(229,196,135,0.18))] p-4 shadow-[0_20px_60px_rgba(85,107,79,0.08)] sm:p-6">
+                <div className="mb-4 flex items-end justify-between gap-4 border-b border-black/10 pb-3 sm:mb-5 sm:pb-4">
+                  <div>
+                    <h2 className="font-display text-2xl text-olive sm:text-3xl">{section.title}</h2>
+                  </div>
+                  <div className="hidden rounded-full border border-black/10 bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/45 sm:block">
+                    {section.items.length + (section.extraTables?.reduce((sum, table) => sum + table.items.length, 0) ?? 0)} choices
+                  </div>
+                </div>
+
+                {renderMenuTable(section.servings, section.items)}
+
+                {section.extraTables?.map((table) => (
+                  <Fragment key={`${section.title}-${table.title ?? table.servings.join("-")}`}>
+                    {renderMenuTable(table.servings, table.items, { title: table.title })}
+                  </Fragment>
+                ))}
               </div>
-
-              {renderMenuTable(section.servings, section.items)}
-
-              {section.extraTables?.map((table) => (
-                <Fragment key={`${section.title}-${table.title ?? table.servings.join("-")}`}>
-                  {renderMenuTable(table.servings, table.items, { title: table.title })}
-                </Fragment>
-              ))}
             </section>
           ))}
         </div>
@@ -334,11 +355,11 @@ function App() {
             {contacts.map((contact) => (
               <div
                 key={contact.label}
-                className="flex items-center justify-between gap-4 rounded-2xl border border-black/10 bg-white px-4 py-4"
+                className="flex items-center justify-between gap-4 rounded-2xl border border-black/10 bg-white/78 px-4 py-4 shadow-[0_12px_28px_rgba(85,107,79,0.08)]"
               >
                 <div className="min-w-0">
                   <p className="text-sm text-black/55">{contact.label}</p>
-                  <p className="mt-1 font-display text-3xl leading-none text-black">{contact.value}</p>
+                  <p className="mt-1 font-display text-3xl leading-none text-olive">{contact.value}</p>
                 </div>
                 <button
                   type="button"
@@ -347,8 +368,8 @@ function App() {
                   }}
                   className={`shrink-0 rounded-full border px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition ${
                     copiedContact === contact.label
-                      ? "copy-success border-olive bg-olive text-white"
-                      : "border-black/10 text-black hover:border-black/25 hover:bg-black hover:text-white"
+                      ? "copy-success border-clay bg-clay text-white"
+                      : "border-black/10 bg-[#f7efe3] text-olive hover:border-olive/30 hover:bg-olive hover:text-white"
                   }`}
                 >
                   {copiedContact === contact.label ? "Copied" : "Copy"}
