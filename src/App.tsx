@@ -47,13 +47,13 @@ function App() {
     options?: { title?: string },
   ) => (
     <div className="mt-4 first:mt-0">
-      <div className="overflow-hidden rounded-2xl border border-black/8 bg-white/80 shadow-[0_14px_40px_rgba(31,41,55,0.06)]">
+      <div className="overflow-hidden rounded-2xl border border-black/8 bg-white/82 shadow-[0_14px_40px_rgba(85,107,79,0.10)]">
         {options?.title ? (
-          <div className="flex items-center justify-between gap-3 border-b border-black/8 bg-[#f4ecde] px-4 py-3 sm:px-5">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/45 sm:text-[11px]">
+          <div className="flex items-center justify-between gap-3 border-b border-black/8 bg-[linear-gradient(90deg,rgba(229,196,135,0.36),rgba(220,207,188,0.6))] px-4 py-3 sm:px-5">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/50 sm:text-[11px]">
               {options.title}
             </p>
-            <div className="rounded-full border border-black/10 bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/45">
+            <div className="rounded-full border border-black/10 bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/50">
               {items.length} items
             </div>
           </div>
@@ -64,13 +64,13 @@ function App() {
             className="grid w-full items-start sm:min-w-[42rem]"
             style={{ gridTemplateColumns: `minmax(0, 1.7fr) repeat(${servings.length}, minmax(0, 1fr))` }}
           >
-            <div className="sticky left-0 z-[2] flex min-h-11 items-center border-b border-black/8 bg-[#fbf7f0] px-2.5 py-2 text-left text-[10px] font-semibold uppercase tracking-[0.12em] text-black/45 sm:min-h-12 sm:px-4 sm:py-2.5 sm:text-xs sm:tracking-[0.18em]">
+            <div className="sticky left-0 z-[2] flex min-h-11 items-center border-b border-black/8 bg-[#f3ece0] px-2.5 py-2 text-left text-[10px] font-semibold uppercase tracking-[0.12em] text-black/50 sm:min-h-12 sm:px-4 sm:py-2.5 sm:text-xs sm:tracking-[0.18em]">
               <span>Menu Item</span>
             </div>
             {servings.map((serving) => (
               <div
                 key={`${options?.title ?? "table"}-${serving}`}
-                className="flex min-h-11 items-center justify-center border-b border-l border-black/8 bg-[#fbf7f0] px-1.5 py-2 text-center text-[9px] font-semibold leading-tight tracking-[0.08em] text-black/50 sm:min-h-12 sm:justify-end sm:px-4 sm:py-2.5 sm:text-right sm:text-xs sm:tracking-[0.18em]"
+                className="flex min-h-11 items-center justify-center border-b border-l border-black/8 bg-[#f3ece0] px-1.5 py-2 text-center text-[9px] font-semibold leading-tight tracking-[0.08em] text-black/55 sm:min-h-12 sm:justify-end sm:px-4 sm:py-2.5 sm:text-right sm:text-xs sm:tracking-[0.18em]"
               >
                 <span>{serving}</span>
               </div>
@@ -83,7 +83,7 @@ function App() {
               <Fragment key={getTableId(options?.title, item.name)}>
                 <div
                   className={`sticky left-0 z-[1] border-b border-black/8 px-2.5 py-2.5 backdrop-blur sm:px-4 sm:py-3 ${
-                    itemIndex % 2 === 0 ? "bg-white/95" : "bg-[#fcfaf6]/95"
+                    itemIndex % 2 === 0 ? "bg-white/95" : "bg-[#faf5ed]/95"
                   }`}
                 >
                   <div className="flex flex-wrap items-start gap-1.5 sm:gap-2">
@@ -91,7 +91,7 @@ function App() {
                       {itemLabel.title}
                     </p>
                     {itemLabel.meta ? (
-                      <span className="whitespace-nowrap rounded-full bg-black/[0.06] px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.08em] text-black/60 sm:px-2 sm:text-[10px] sm:tracking-[0.12em]">
+                      <span className="whitespace-nowrap rounded-full bg-[#c46a4a]/10 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.08em] text-[#8b4b33] sm:px-2 sm:text-[10px] sm:tracking-[0.12em]">
                         {itemLabel.meta}
                       </span>
                     ) : null}
@@ -104,7 +104,7 @@ function App() {
                   <div
                     key={`${getTableId(options?.title, item.name)}-${serving}`}
                     className={`border-b border-l border-black/8 px-1.5 py-2.5 text-center sm:px-4 sm:py-3 sm:text-right ${
-                      itemIndex % 2 === 0 ? "bg-white/60" : "bg-[#fcfaf6]/70"
+                      itemIndex % 2 === 0 ? "bg-white/65" : "bg-[#faf5ed]/80"
                     }`}
                   >
                     <p className="font-display text-[1rem] leading-none text-black sm:text-[1.35rem]">
@@ -265,17 +265,17 @@ function App() {
   return (
     <main className="bg-cream">
       <section id="top" className="mx-auto max-w-5xl px-4 pt-0 pb-8 sm:px-6 lg:px-8">
-        <nav className="sticky top-0 z-10 border-b border-black/10 bg-cream/95 pt-3 pb-2 backdrop-blur sm:pt-4 sm:pb-3">
+        <nav className="sticky top-0 z-10 border-b border-black/10 bg-cream/90 pt-3 pb-2 backdrop-blur sm:pt-4 sm:pb-3">
           <div className="flex items-center justify-between gap-4">
             <a
               href="#top"
-              className="shrink-0 font-display text-lg leading-none font-bold text-black transition hover:text-black/70 sm:text-2xl"
+              className="shrink-0 font-display text-lg leading-none font-bold text-olive transition hover:text-clay sm:text-2xl"
             >
               {menuData.brand}
             </a>
             <a
               href="#contact"
-              className="inline-flex shrink-0 rounded-full border border-black/15 px-3 py-1.5 text-xs font-medium text-black transition hover:bg-black hover:text-white sm:px-4 sm:py-2 sm:text-sm"
+              className="inline-flex shrink-0 rounded-full border border-black/10 bg-white/65 px-3 py-1.5 text-xs font-medium text-olive transition hover:bg-olive hover:text-white sm:px-4 sm:py-2 sm:text-sm"
             >
               Contact
             </a>
@@ -306,8 +306,8 @@ function App() {
                   }}
                   className={`rounded-full border px-2.5 py-1 text-[11px] transition sm:px-4 sm:py-2 sm:text-sm ${
                     activeSection === item.id
-                      ? "border-black bg-black text-white"
-                      : "border-black/10 text-black/70 hover:border-black/30 hover:text-black"
+                      ? "border-olive bg-olive text-white"
+                      : "border-black/10 bg-white/55 text-black/70 hover:border-olive/30 hover:bg-[#f1e6d4] hover:text-olive"
                   }`}
                 >
                   <span className="whitespace-nowrap">
@@ -327,10 +327,10 @@ function App() {
               id={section.title.toLowerCase().replace(/\s+/g, '-')}
               className="scroll-mt-40 sm:scroll-mt-44"
             >
-              <div className="rounded-[2rem] border border-black/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.45),rgba(255,255,255,0.18))] p-4 shadow-[0_20px_60px_rgba(31,41,55,0.05)] sm:p-6">
+              <div className="rounded-[2rem] border border-black/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.68),rgba(229,196,135,0.18))] p-4 shadow-[0_20px_60px_rgba(85,107,79,0.08)] sm:p-6">
                 <div className="mb-4 flex items-end justify-between gap-4 border-b border-black/10 pb-3 sm:mb-5 sm:pb-4">
                   <div>
-                    <h2 className="font-display text-2xl text-black sm:text-3xl">{section.title}</h2>
+                    <h2 className="font-display text-2xl text-olive sm:text-3xl">{section.title}</h2>
                   </div>
                   <div className="hidden rounded-full border border-black/10 bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/45 sm:block">
                     {section.items.length + (section.extraTables?.reduce((sum, table) => sum + table.items.length, 0) ?? 0)} choices
@@ -355,11 +355,11 @@ function App() {
             {contacts.map((contact) => (
               <div
                 key={contact.label}
-                className="flex items-center justify-between gap-4 rounded-2xl border border-black/10 bg-white px-4 py-4"
+                className="flex items-center justify-between gap-4 rounded-2xl border border-black/10 bg-white/78 px-4 py-4 shadow-[0_12px_28px_rgba(85,107,79,0.08)]"
               >
                 <div className="min-w-0">
                   <p className="text-sm text-black/55">{contact.label}</p>
-                  <p className="mt-1 font-display text-3xl leading-none text-black">{contact.value}</p>
+                  <p className="mt-1 font-display text-3xl leading-none text-olive">{contact.value}</p>
                 </div>
                 <button
                   type="button"
@@ -368,8 +368,8 @@ function App() {
                   }}
                   className={`shrink-0 rounded-full border px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] transition ${
                     copiedContact === contact.label
-                      ? "copy-success border-olive bg-olive text-white"
-                      : "border-black/10 text-black hover:border-black/25 hover:bg-black hover:text-white"
+                      ? "copy-success border-clay bg-clay text-white"
+                      : "border-black/10 bg-[#f7efe3] text-olive hover:border-olive/30 hover:bg-olive hover:text-white"
                   }`}
                 >
                   {copiedContact === contact.label ? "Copied" : "Copy"}

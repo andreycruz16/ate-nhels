@@ -2,18 +2,18 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #1f2937;
-  --color-olive: #41583d;
-  --color-clay: #b9623f;
-  --color-cream: #f7f2e8;
-  --color-sand: #eadbc1;
-  --color-gold: #f2be5c;
+  --color-ink: #2e2a26;
+  --color-olive: #556b4f;
+  --color-clay: #c46a4a;
+  --color-cream: #f8f3e8;
+  --color-sand: #dccfbc;
+  --color-gold: #e5c487;
   --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", serif;
   --font-sans: "Inter", "Segoe UI", sans-serif;
 }
 
 html {
-  background: #f7f2e8;
+  background: linear-gradient(180deg, #fbf6ed 0%, #efe1ca 100%);
   scroll-behavior: smooth;
 }
 
@@ -33,7 +33,7 @@ body {
 }
 
 ::selection {
-  background: rgba(185, 98, 63, 0.24);
+  background: rgba(196, 106, 74, 0.24);
 }
 
 .thin-scrollbar {
@@ -48,12 +48,12 @@ body {
 @keyframes copy-pop {
   0% {
     transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(65, 88, 61, 0.24);
+    box-shadow: 0 0 0 0 rgba(85, 107, 79, 0.24);
   }
 
   45% {
     transform: scale(1.08);
-    box-shadow: 0 0 0 10px rgba(65, 88, 61, 0);
+    box-shadow: 0 0 0 10px rgba(85, 107, 79, 0);
   }
 
   100% {
