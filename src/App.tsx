@@ -135,6 +135,32 @@ function App() {
   const pendingSectionTimeoutRef = useRef<number | null>(null);
   const copiedTimeoutRef = useRef<number | null>(null);
 
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+
+    if (!section) {
+      return;
+    }
+
+    setActiveSection(sectionId);
+    pendingSectionRef.current = sectionId;
+
+    if (pendingSectionTimeoutRef.current) {
+      window.clearTimeout(pendingSectionTimeoutRef.current);
+    }
+
+    pendingSectionTimeoutRef.current = window.setTimeout(() => {
+      pendingSectionRef.current = null;
+      pendingSectionTimeoutRef.current = null;
+    }, 800);
+
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    if (window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+  };
+
   useEffect(() => {
     const sections = navItems
       .map((item) => document.getElementById(item.id))
@@ -212,6 +238,22 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!window.location.hash) {
+      return;
+    }
+
+    const hashTarget = window.location.hash.slice(1);
+    const target = document.getElementById(hashTarget);
+
+    if (!target) {
+      return;
+    }
+
+    target.scrollIntoView({ behavior: "auto", block: "start" });
+    window.history.replaceState(null, "", window.location.pathname + window.location.search);
+  }, []);
+
   const copyContactNumber = async (label: string, value: string) => {
     const finalizeCopy = () => {
       setCopiedContact(label);
@@ -263,18 +305,20 @@ function App() {
       <section id="top" className="mx-auto max-w-5xl px-4 pt-0 pb-8 sm:px-6 lg:px-8">
         <nav className="sticky top-0 z-10 border-b border-black/10 bg-cream/90 pt-3 pb-2 backdrop-blur sm:pt-4 sm:pb-3">
           <div className="flex items-center justify-between gap-4">
-            <a
-              href="#top"
+            <button
+              type="button"
+              onClick={() => scrollToSection("top")}
               className="shrink-0 font-display text-lg leading-none font-bold text-olive transition hover:text-clay sm:text-2xl"
             >
               {menuData.brand}
-            </a>
-            <a
-              href="#contact"
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSection("contact")}
               className="inline-flex shrink-0 rounded-full border border-black/10 bg-white/65 px-3 py-1.5 text-xs font-medium text-olive transition hover:bg-olive hover:text-white sm:px-4 sm:py-2 sm:text-sm"
             >
               Contact
-            </a>
+            </button>
           </div>
           <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-black/45 sm:mt-3 sm:text-xs sm:tracking-[0.22em]">
             Last updated {menuData.lastUpdated}
@@ -283,23 +327,11 @@ function App() {
             <div ref={navScrollRef} className="thin-scrollbar min-w-0 overflow-x-auto">
             <div className="flex min-w-max gap-2 sm:gap-3">
               {navItems.map((item) => (
-                <a
+                <button
                   key={item.id}
-                  href={`#${item.id}`}
+                  type="button"
                   data-tab-id={item.id}
-                  onClick={() => {
-                    setActiveSection(item.id);
-                    pendingSectionRef.current = item.id;
-
-                    if (pendingSectionTimeoutRef.current) {
-                      window.clearTimeout(pendingSectionTimeoutRef.current);
-                    }
-
-                    pendingSectionTimeoutRef.current = window.setTimeout(() => {
-                      pendingSectionRef.current = null;
-                      pendingSectionTimeoutRef.current = null;
-                    }, 800);
-                  }}
+                  onClick={() => scrollToSection(item.id)}
                   className={`rounded-full border px-2.5 py-1 text-[11px] transition sm:px-4 sm:py-2 sm:text-sm ${
                     activeSection === item.id
                       ? "border-olive bg-olive text-white"
@@ -309,7 +341,7 @@ function App() {
                   <span className="whitespace-nowrap">
                     {item.emoji} {item.label}
                   </span>
-                </a>
+                </button>
               ))}
             </div>
           </div>
