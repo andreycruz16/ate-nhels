@@ -25,13 +25,13 @@ export function MenuTable({ servings, items, title }: MenuTableProps) {
             className="grid w-full items-start sm:min-w-[42rem]"
             style={{ gridTemplateColumns: `minmax(0, 1.7fr) repeat(${servings.length}, minmax(0, 1fr))` }}
           >
-            <div className="sticky left-0 z-[2] flex min-h-11 items-center border-r border-b border-black/15 bg-[#f3ece0] px-2.5 py-2 text-left text-[10px] font-semibold uppercase tracking-[0.12em] text-black/50 sm:min-h-12 sm:px-4 sm:py-2.5 sm:text-xs sm:tracking-[0.18em]">
+            <div className="sticky left-0 z-[2] flex min-h-11 items-center border-r border-b border-black/15 bg-[#f3ece0] px-2.5 py-2 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-black/50 sm:min-h-12 sm:px-4 sm:py-2.5 sm:text-sm sm:tracking-[0.18em]">
               <span>Menu Item</span>
             </div>
             {servings.map((serving) => (
               <div
                 key={`${title ?? "table"}-${serving}`}
-                className="flex min-h-11 items-center justify-center border-b border-l border-black/15 bg-[#f3ece0] px-1.5 py-2 text-center text-[9px] font-semibold leading-tight tracking-[0.08em] text-black/55 sm:min-h-12 sm:justify-end sm:px-4 sm:py-2.5 sm:text-right sm:text-xs sm:tracking-[0.18em]"
+                className="flex min-h-11 items-center justify-center border-b border-l border-black/15 bg-[#f3ece0] px-1.5 py-2 text-center text-[10px] font-semibold leading-tight tracking-[0.08em] text-black/55 sm:min-h-12 sm:justify-end sm:px-4 sm:py-2.5 sm:text-right sm:text-sm sm:tracking-[0.18em]"
               >
                 <span>{serving}</span>
               </div>
