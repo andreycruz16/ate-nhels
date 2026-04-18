@@ -47,7 +47,7 @@ function App() {
     options?: { title?: string },
   ) => (
     <div className="mt-4 first:mt-0">
-      <div className="overflow-hidden rounded-[1.75rem] border border-black/8 bg-white/80 shadow-[0_14px_40px_rgba(31,41,55,0.06)]">
+      <div className="overflow-hidden rounded-2xl border border-black/8 bg-white/80 shadow-[0_14px_40px_rgba(31,41,55,0.06)]">
         {options?.title ? (
           <div className="flex items-center justify-between gap-3 border-b border-black/8 bg-[#f4ecde] px-4 py-3 sm:px-5">
             <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-black/45 sm:text-[11px]">
@@ -59,20 +59,20 @@ function App() {
           </div>
         ) : null}
 
-        <div className="overflow-x-auto">
+        <div className="overflow-hidden sm:overflow-x-auto">
           <div
-            className="grid min-w-[21rem] items-start sm:min-w-[42rem]"
-            style={{ gridTemplateColumns: `minmax(11rem, 1.5fr) repeat(${servings.length}, minmax(5.5rem, 1fr))` }}
+            className="grid w-full items-start sm:min-w-[42rem]"
+            style={{ gridTemplateColumns: `minmax(0, 1.7fr) repeat(${servings.length}, minmax(0, 1fr))` }}
           >
-            <div className="sticky left-0 z-[2] border-b border-black/8 bg-[#fbf7f0] px-3 py-2.5 text-left text-[10px] font-semibold uppercase tracking-[0.16em] text-black/45 sm:px-4 sm:text-[11px] sm:tracking-[0.18em]">
-              Menu Item
+            <div className="sticky left-0 z-[2] flex min-h-11 items-center border-b border-black/8 bg-[#fbf7f0] px-2.5 py-2 text-left text-[10px] font-semibold uppercase tracking-[0.12em] text-black/45 sm:min-h-12 sm:px-4 sm:py-2.5 sm:text-xs sm:tracking-[0.18em]">
+              <span>Menu Item</span>
             </div>
             {servings.map((serving) => (
               <div
                 key={`${options?.title ?? "table"}-${serving}`}
-                className="border-b border-l border-black/8 bg-[#fbf7f0] px-2.5 py-2.5 text-center text-[9px] font-semibold uppercase tracking-[0.14em] text-black/50 sm:px-4 sm:text-right sm:text-[11px] sm:tracking-[0.18em]"
+                className="flex min-h-11 items-center justify-center border-b border-l border-black/8 bg-[#fbf7f0] px-1.5 py-2 text-center text-[9px] font-semibold leading-tight tracking-[0.08em] text-black/50 sm:min-h-12 sm:justify-end sm:px-4 sm:py-2.5 sm:text-right sm:text-xs sm:tracking-[0.18em]"
               >
-                {serving}
+                <span>{serving}</span>
               </div>
             ))}
 
@@ -82,16 +82,16 @@ function App() {
               return (
               <Fragment key={getTableId(options?.title, item.name)}>
                 <div
-                  className={`sticky left-0 z-[1] border-b border-black/8 px-3 py-2.5 backdrop-blur sm:px-4 sm:py-3 ${
+                  className={`sticky left-0 z-[1] border-b border-black/8 px-2.5 py-2.5 backdrop-blur sm:px-4 sm:py-3 ${
                     itemIndex % 2 === 0 ? "bg-white/95" : "bg-[#fcfaf6]/95"
                   }`}
                 >
                   <div className="flex flex-wrap items-start gap-1.5 sm:gap-2">
-                    <p className="min-w-0 text-[13px] font-semibold leading-snug text-black sm:text-[15px]">
+                    <p className="min-w-0 text-[12px] font-semibold leading-snug text-black sm:text-[15px]">
                       {itemLabel.title}
                     </p>
                     {itemLabel.meta ? (
-                      <span className="rounded-full bg-black/[0.06] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] whitespace-nowrap text-black/60">
+                      <span className="whitespace-nowrap rounded-full bg-black/[0.06] px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.08em] text-black/60 sm:px-2 sm:text-[10px] sm:tracking-[0.12em]">
                         {itemLabel.meta}
                       </span>
                     ) : null}
@@ -103,11 +103,11 @@ function App() {
                 {servings.map((serving, index) => (
                   <div
                     key={`${getTableId(options?.title, item.name)}-${serving}`}
-                    className={`border-b border-l border-black/8 px-2.5 py-2.5 text-center sm:px-4 sm:py-3 sm:text-right ${
+                    className={`border-b border-l border-black/8 px-1.5 py-2.5 text-center sm:px-4 sm:py-3 sm:text-right ${
                       itemIndex % 2 === 0 ? "bg-white/60" : "bg-[#fcfaf6]/70"
                     }`}
                   >
-                    <p className="font-display text-lg leading-none text-black sm:text-[1.35rem]">
+                    <p className="font-display text-[1rem] leading-none text-black sm:text-[1.35rem]">
                       {item.prices[index] || "-"}
                     </p>
                   </div>
@@ -330,10 +330,7 @@ function App() {
               <div className="rounded-[2rem] border border-black/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.45),rgba(255,255,255,0.18))] p-4 shadow-[0_20px_60px_rgba(31,41,55,0.05)] sm:p-6">
                 <div className="mb-4 flex items-end justify-between gap-4 border-b border-black/10 pb-3 sm:mb-5 sm:pb-4">
                   <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-black/45">
-                      {sectionEmojis[section.title] ?? "🍽️"} Catering Menu
-                    </p>
-                    <h2 className="mt-1 font-display text-2xl text-black sm:text-3xl">{section.title}</h2>
+                    <h2 className="font-display text-2xl text-black sm:text-3xl">{section.title}</h2>
                   </div>
                   <div className="hidden rounded-full border border-black/10 bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-black/45 sm:block">
                     {section.items.length + (section.extraTables?.reduce((sum, table) => sum + table.items.length, 0) ?? 0)} choices

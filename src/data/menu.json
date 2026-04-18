@@ -24,7 +24,7 @@
   "menuSections": [
     {
       "title": "Pasta",
-      "servings": ["Good for 20", "Good for 30"],
+      "servings": ["20 pax", "30 pax"],
       "items": [
         { "name": "Pancit Malabon", "prices": ["₱ 1,000", "₱ 1,300"] },
         { "name": "Pancit Canton", "prices": ["₱ 1,000", "₱ 1,300"] },
@@ -48,7 +48,7 @@
     },
     {
       "title": "Beef",
-      "servings": ["Good for 20 - 25"],
+      "servings": ["20-25 pax"],
       "items": [
         { "name": "Beef Kaldereta", "prices": ["₱ 2,125"] },
         { "name": "Beef Steak", "prices": ["₱ 2,125"] },
@@ -57,7 +57,7 @@
     },
     {
       "title": "Pork",
-      "servings": ["Good for 20 - 25"],
+      "servings": ["20-25 pax"],
       "items": [
         { "name": "Lechon Kawali", "prices": ["₱ 2,000"] },
         { "name": "Pork Sisig", "prices": ["₱ 1,800"] },
@@ -77,7 +77,7 @@
     },
     {
       "title": "Chicken",
-      "servings": ["Good for 20 - 25"],
+      "servings": ["20-25 pax"],
       "items": [
         { "name": "Chicken Fillet", "prices": ["₱ 1,850"] },
         { "name": "Chicken Cordon Bleu", "prices": ["₱ 2,000"] },
@@ -93,7 +93,7 @@
     },
     {
       "title": "Seafood",
-      "servings": ["Good for 20 - 25"],
+      "servings": ["20-25 pax"],
       "items": [
         { "name": "Calamares", "prices": ["₱ 2,000"] },
         { "name": "Fish fillet", "prices": ["₱ 1,800"] },
@@ -112,7 +112,7 @@
     },
     {
       "title": "Vegetable",
-      "servings": ["Good for 25"],
+      "servings": ["25 pax"],
       "items": [
         { "name": "Dry Laing", "prices": ["₱ 1,500"] }
       ],
