@@ -321,7 +321,7 @@ function App() {
             </button>
           </div>
           <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-black/45 sm:mt-3 sm:text-xs sm:tracking-[0.22em]">
-            Last updated {menuData.lastUpdated}
+            Menu updated {menuData.lastUpdated}
           </p>
           <div className="mt-2 overflow-hidden sm:mt-3">
             <div ref={navScrollRef} className="thin-scrollbar min-w-0 overflow-x-auto">

@@ -59,6 +59,7 @@
       "servings": ["20-25 pax"],
       "items": [
         { "name": "Lechon Kawali", "prices": ["₱ 2,000"] },
+        { "name": "Crispy Kare-Kare", "prices": ["₱ 2,125"] },
         { "name": "Pork Sisig", "prices": ["₱ 1,800"] },
         { "name": "Pork Teriyaki", "prices": ["₱ 1,800"] },
         { "name": "Sweet & Sour Pork", "prices": ["₱ 1,800"] },
@@ -71,8 +72,7 @@
         { "name": "Pork Binagoongan", "prices": ["₱ 1,800"] },
         { "name": "Pork Dinuguan", "prices": ["₱ 1,700"] },
         { "name": "Pork Shanghai (50pcs)", "prices": ["₱ 800"] },
-        { "name": "Pork Shanghai (100pcs)", "prices": ["₱ 1,600"] },
-        { "name": "Crispy Kare-Kare", "prices": ["₱ 2,125"] }
+        { "name": "Pork Shanghai (100pcs)", "prices": ["₱ 1,600"] }
       ]
     },
     {
