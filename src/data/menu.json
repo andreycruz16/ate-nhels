@@ -60,7 +60,7 @@
       "servings": ["20-25 pax"],
       "items": [
         { "name": "Lechon Kawali", "prices": ["₱ 2,000"] },
-        { "name": "Crispy Kare-Kare", "prices": ["₱ 2,125"] },
+        { "name": "Crispy Kare-Kare", "prices": ["₱ 2,000"] },
         { "name": "Pork Sisig", "prices": ["₱ 1,800"] },
         { "name": "Pork Teriyaki", "prices": ["₱ 1,800"] },
         { "name": "Sweet & Sour Pork", "prices": ["₱ 1,800"] },
