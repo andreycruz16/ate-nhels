@@ -51,8 +51,7 @@
       "servings": ["20-25 pax"],
       "items": [
         { "name": "Beef Kaldereta", "prices": ["₱ 2,125"] },
-        { "name": "Beef Steak", "prices": ["₱ 2,125"] },
-        { "name": "Crispy Kare-Kare", "prices": ["₱ 2,125"] }
+        { "name": "Beef Steak", "prices": ["₱ 2,125"] }
       ]
     },
     {
@@ -72,7 +71,8 @@
         { "name": "Pork Binagoongan", "prices": ["₱ 1,800"] },
         { "name": "Pork Dinuguan", "prices": ["₱ 1,700"] },
         { "name": "Pork Shanghai (50pcs)", "prices": ["₱ 800"] },
-        { "name": "Pork Shanghai (100pcs)", "prices": ["₱ 1,600"] }
+        { "name": "Pork Shanghai (100pcs)", "prices": ["₱ 1,600"] },
+        { "name": "Crispy Kare-Kare", "prices": ["₱ 2,125"] }
       ]
     },
     {
